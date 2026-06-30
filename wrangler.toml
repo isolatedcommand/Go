@@ -1,4 +1,4 @@
-name = "go-isolatedcommand"
+name = "go-isolatedcommand-com"
 main = "src/index.js"
 compatibility_date = "2025-07-31"
 workers_dev = false
