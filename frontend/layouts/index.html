@@ -1,0 +1,46 @@
+{{ define "main" }}
+
+<!-- Hero -->
+<section class="slider">
+  <div class="container">
+    <div class="row"><div class="col-md-12"><div class="block">
+      <span class="go-eyebrow">Isolated Command</span>
+      <h1 style="color:#3272c8;">Go</h1>
+      <h4>Short, memorable links for everything Isolated Command.</h4>
+      <p class="go-lede">Every short link lives at <span class="go-domain">go.isolatedcommand.com/&lt;name&gt;</span> and redirects instantly. It runs entirely on Cloudflare Workers, backed by a Workers KV store — no servers, globally fast.</p>
+      <div class="go-hero-actions">
+        <a href="/links/" class="btn btn-main">Browse links</a>
+        <a href="/how-it-works/" class="btn btn-solid-border">How it works</a>
+      </div>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section bg-dark dark-service">
+  <div class="container">
+    <div class="row"><div class="col-md-12"><div class="title"><h2>How a Go link works</h2></div></div></div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">1</span><h4>Visit a short link</h4><p>Someone opens <span class="go-domain">go.isolatedcommand.com/github</span>.</p></div></div>
+      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">2</span><h4>The Worker looks it up</h4><p>A Cloudflare Worker reads the path and finds the matching destination in Workers KV.</p></div></div>
+      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">3</span><h4>Instant redirect</h4><p>The Worker returns a <code>301</code> redirect to the real URL — served from the edge, worldwide.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular links -->
+<section class="section">
+  <div class="container">
+    <div class="row"><div class="col-md-8 col-md-offset-2">
+      <div class="title"><h2>Popular links</h2></div>
+      <ul class="go-links">
+        <li><span class="go-short">go.isolatedcommand.com/github</span><span class="go-arrow">→</span><span class="go-dest">github.com/isolatedcommand</span></li>
+        <li><span class="go-short">go.isolatedcommand.com/linkedin</span><span class="go-arrow">→</span><span class="go-dest">LinkedIn company page</span></li>
+        <li><span class="go-short">go.isolatedcommand.com/instagram</span><span class="go-arrow">→</span><span class="go-dest">Instagram profile</span></li>
+      </ul>
+      <p class="text-center"><a href="/links/" class="btn btn-small">See all links →</a></p>
+    </div></div>
+  </div>
+</section>
+
+{{ end }}

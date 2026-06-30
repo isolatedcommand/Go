@@ -1,0 +1,41 @@
+baseURL = "https://go.isolatedcommand.com/"
+title = "Go — Isolated Command Link Shortener"
+enableRobotsTXT = true
+
+[module]
+  [[module.imports]]
+    path = "github.com/isolatedcommand/Publisher"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[params]
+logo_text = "Go"
+logo_width = "120px"
+description = "go.isolatedcommand.com — the official Isolated Command link shortener, running on Cloudflare Workers."
+navbar_fixed = true
+
+[[params.navbar_buttons]]
+label = "Isolated Command ↗"
+link = "https://isolatedcommand.com"
+style = "outline"
+
+[[menu.main]]
+name = "Links"
+url = "/links/"
+weight = 1
+
+[[menu.main]]
+name = "How it works"
+url = "/how-it-works/"
+weight = 2
+
+[[menu.footer]]
+name = "Isolated Command"
+url = "https://isolatedcommand.com"
+weight = 1
+
+[[menu.footer]]
+name = "Powered by Cloudflare Workers"
+url = "https://workers.cloudflare.com/"
+weight = 2

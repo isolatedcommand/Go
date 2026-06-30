@@ -1,0 +1,25 @@
+name = "go-isolatedcommand"
+main = "src/index.js"
+compatibility_date = "2025-07-31"
+workers_dev = false
+
+# Static front end (Publisher-themed Hugo site, built into frontend/public).
+# Assets are served automatically for matching paths; the Worker runs only
+# for non-asset paths (short codes / unknown), where it does the KV redirect.
+[assets]
+directory = "./frontend/public"
+binding = "ASSETS"
+not_found_handling = "none"
+
+# Short-link store. Create with:
+#   wrangler kv namespace create SHORT_URLS
+#   wrangler kv namespace create SHORT_URLS --preview
+# then paste the ids below.
+[[kv_namespaces]]
+binding = "SHORT_URLS"
+id = "cc83d0f857eb4ccc977ed6586cc11d79"
+preview_id = "7fccb327a28c4064b008fb87e0ef5b01"
+
+# Build the Hugo front end before deploying (Cloudflare Workers build).
+[build]
+command = "bash build.sh"

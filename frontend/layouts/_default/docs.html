@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{ partial "page-title.html" . }}
+<section class="page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 sticky-top">
+        {{ with .Params.subtitle }}<p class="lead">{{ . | $.Page.RenderString (dict "display" "block") }}</p>{{ end }}
+        <h3>On this page</h3>
+        {{ .TableOfContents }}
+        <p style="margin-top:1.5rem;font-size:.85em;opacity:.65;">Last updated {{ time.Format ":date_long" .Lastmod }}</p>
+      </div>
+      <div class="col-md-8">
+        <div class="post-content post-excerpt">{{ .Content }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,6 @@
+frontend/public/
+frontend/resources/
+.hugo_build.lock
+node_modules/
+.wrangler/
+.DS_Store
