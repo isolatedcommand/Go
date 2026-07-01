@@ -1,0 +1,43 @@
+{{ define "main" }}
+{{/* The __GO_*__ tokens are replaced by the Worker with the real link details
+     before this page is served at the short URL. */}}
+<section class="slider">
+  <div class="container">
+    <div class="row"><div class="col-md-12"><div class="block">
+      <div id="go-redirect" class="go-redirect"
+           data-to="__GO_DEST__" data-code="__GO_CODE__" data-clicks="__GO_CLICKS__" data-wait="__GO_WAIT__">
+
+        <span class="go-eyebrow">You're leaving Go</span>
+        <h1 style="color:#3272c8;">Redirecting…</h1>
+
+        <div class="go-countdown" aria-hidden="true">
+          <svg viewBox="0 0 120 120" class="go-ring">
+            <circle class="go-ring-track" cx="60" cy="60" r="52"></circle>
+            <circle class="go-ring-fill" id="go-ring-fill" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <span class="go-count-num" id="go-count">5</span>
+        </div>
+
+        <p class="go-lede" style="margin:1.2rem auto 0;">Taking you to your destination in <span id="go-count-word">5</span> seconds…</p>
+
+        <div class="go-redirect-dest">
+          <span class="go-domain">go.isolatedcommand.com/__GO_CODE__</span>
+          <span class="go-arrow">→</span>
+          <a id="go-dest-link" href="__GO_DEST__" rel="noopener nofollow">__GO_DEST_DISPLAY__</a>
+        </div>
+
+        <div class="go-hero-actions" style="justify-content:center;margin-top:1.8rem;">
+          <a id="go-now" href="__GO_DEST__" class="btn btn-main" rel="noopener nofollow">Continue now →</a>
+          <a href="/" class="btn btn-solid-border">Cancel</a>
+        </div>
+
+        <p class="go-note" style="margin-top:1.6rem;">👁️ This link has been visited <strong>__GO_CLICKS__</strong> times. Destinations are user-submitted — continue only if you trust it. <a href="/">Report a link</a>.</p>
+
+        <noscript>
+          <p class="go-note">JavaScript is off — <a href="__GO_DEST__" rel="noopener nofollow">continue to your destination</a>.</p>
+        </noscript>
+      </div>
+    </div></div></div>
+  </div>
+</section>
+{{ end }}

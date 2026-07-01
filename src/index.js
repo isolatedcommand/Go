@@ -5,12 +5,13 @@
  * this Worker runs, so the Worker only ever sees non-asset paths):
  *
  *   /api/*                     -> JSON API (create / search / admin)  — src/api.js
- *   path matching a KV key     -> 302 redirect to the destination     (+ click analytics)
+ *   path matching a KV key     -> themed 5-second interstitial, then redirect (+ click analytics)
  *   disabled / expired link    -> friendly "unavailable" page
  *   anything else              -> the static Publisher 404 page
  *
- * A 302 (not 301) is used for redirects so that disabling or editing a link
- * takes effect immediately — a 301 would be cached permanently by browsers.
+ * Rather than an instant 301/302, a known link serves a Publisher-themed
+ * interstitial (the /redirect/ page) that counts down 5 seconds and then sends
+ * the visitor on — showing the destination and how many times it's been used.
  *
  * Based on the Cloudflare Workers + KV URL-shortener pattern
  * (https://blog.logrocket.com/creating-url-shortener-cloudflare-workers/).
@@ -19,6 +20,33 @@ import { handleApi } from "./api.js";
 import { assertHttpsKv, getLink, recordClick } from "./store.js";
 
 let httpsChecked = false;
+
+function escapeHtml(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+// Serve the themed interstitial (the built /redirect/ page) with the link's
+// details injected in place of the __GO_*__ tokens.
+async function interstitial(env, url, link) {
+  if (!env.ASSETS) return Response.redirect(link.dest, 302);
+  const res = await env.ASSETS.fetch(new URL("/redirect/index.html", url.origin));
+  let html = await res.text();
+  const code = link.key.replace(/^\//, "");
+  const values = {
+    __GO_DEST__: escapeHtml(link.dest),
+    __GO_DEST_DISPLAY__: escapeHtml(link.dest),
+    __GO_CODE__: escapeHtml(code),
+    __GO_CLICKS__: String(link.clicks || 0),
+    __GO_WAIT__: "5",
+  };
+  html = html.replace(/__GO_[A-Z_]+__/g, (m) => (m in values ? values[m] : ""));
+  return new Response(html, {
+    status: 200,
+    headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" },
+  });
+}
 
 function policyPage(title, message, status) {
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
@@ -73,9 +101,9 @@ export default {
           410
         );
       }
-      // Count the click without slowing the redirect.
+      // Count the click, then serve the themed 5-second interstitial.
       ctx.waitUntil(recordClick(env, link.key));
-      return Response.redirect(link.dest, 302);
+      return interstitial(env, url, link);
     }
 
     // 3. Not a short link — serve the static Publisher front end's 404 page.

@@ -95,7 +95,36 @@
                  border-radius:12px;background:var(--go-panel);text-align:center;}
   .go-admin-gate input{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--go-line);border-radius:10px;
                        color:#fff;padding:.75rem 1rem;font-size:1rem;margin:.8rem 0;}
+
+  /* ---- Spacious home ---- */
+  .slider .block h4{margin-top:1rem;opacity:.9;}
+  .slider .go-lede{margin-top:1.2rem;}
+  .go-create{margin-top:3.2rem;}
+  .go-badges{margin-top:2.4rem;gap:.7rem;}
+  .go-hero-actions{margin-top:2.4rem;gap:1.1rem;}
+  .section{padding-top:100px;padding-bottom:100px;}
+  .section .title{margin-bottom:2.2rem;}
+  .go-step{padding:1.8rem;}
+  @media (min-width:992px){ .dark-service .go-step{margin-bottom:0;} .dark-service .row{row-gap:1.5rem;} }
+
+  /* ---- 5-second interstitial (/redirect/) ---- */
+  .go-redirect{padding:1rem 0;}
+  .go-countdown{position:relative;width:132px;height:132px;margin:1.6rem auto .4rem;}
+  .go-ring{width:132px;height:132px;transform:rotate(-90deg);}
+  .go-ring-track{fill:none;stroke:rgba(255,255,255,.12);stroke-width:8;}
+  .go-ring-fill{fill:none;stroke:var(--go-blue);stroke-width:8;stroke-linecap:round;}
+  .go-count-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+                font-family:monospace;font-weight:800;font-size:3rem;color:#fff;}
+  .go-redirect-dest{display:inline-flex;align-items:center;gap:.8rem;flex-wrap:wrap;justify-content:center;
+                    margin:1.6rem auto 0;max-width:46rem;padding:1rem 1.3rem;border:1px solid var(--go-line);
+                    border-radius:14px;background:var(--go-panel);}
+  .go-redirect-dest .go-domain{white-space:nowrap;}
+  .go-redirect-dest a{color:#dfe8fb;word-break:break-all;font-weight:600;}
+  .go-redirect-dest a:hover{color:#fff;}
 </style>
+
+{{/* Keep the interstitial out of search indexes. */}}
+{{ with .Params.robots }}<meta name="robots" content="{{ . }}">{{ end }}
 
 {{/* Per-page script (declared via `page_js` front matter, served from static/js).
      go-common.js provides shared helpers and must load first (both use `defer`,
