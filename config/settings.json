@@ -15,8 +15,8 @@
   "admin": {
     "comment": "Admin (/admin + /api/admin/*) is protected by Cloudflare Access. Put your Access team domain and application AUD here, or set the ACCESS_TEAM_DOMAIN / ACCESS_AUD env vars (which take precedence).",
     "access": {
-      "teamDomain": "https://YOUR-TEAM.cloudflareaccess.com",
-      "aud": "YOUR_ACCESS_APPLICATION_AUD"
+      "teamDomain": "https://conanzhangtech.cloudflareaccess.com",
+      "aud": "5ee9c4ca410f890d1d3be6b6634e51fe69aa7ab40629312547cd205c48b44e52"
     }
   },
   "security": {

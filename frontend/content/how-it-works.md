@@ -1,88 +1,46 @@
 ---
 title: "How it works"
-description: "The architecture behind go.isolatedcommand.com — Cloudflare Workers + Workers KV."
-subtitle: "A single Worker serves this site and redirects every short link."
+description: "The architecture behind go.isolatedcommand.com — Cloudflare Workers + Workers KV, in brief."
+subtitle: "A single Worker serves this site, screens every link, and redirects from the edge. For the full guide, see the Documentation."
 layout: docs
-lastmod: 2026-06-30
+lastmod: 2026-07-01
 ---
 
-## Overview
+## In one paragraph
 
-**Go** is a URL shortener built entirely on **Cloudflare Workers**, following the well-known pattern of pairing a Worker with **Workers KV** for storage. One Worker handles every request to `go.isolatedcommand.com`:
+**Go** is a free, open-source URL shortener from the **Isolated Command Developer
+Community (DevComm)**, running entirely on **Cloudflare Workers** and **Workers KV**.
+One Worker handles every request to `go.isolatedcommand.com`: it serves this static
+site, exposes a small JSON API, screens and stores new links, and redirects known
+short codes — all from Cloudflare's global edge. There is no origin server and no
+database in the request path.
 
-- If the path matches a key in the KV store → it returns a **301 redirect** to the destination.
-- Otherwise → it serves this **Publisher-themed static site** (homepage, links directory, 404).
+## The three jobs of the Worker
 
-There is no origin server and no database in the request path — just the edge.
+1. **Serve the site.** The home page, [search](/search/), docs and admin pages are a
+   static [Publisher](https://isolatedcommand.com)-themed Hugo build, served by the
+   Worker's assets binding.
+2. **Handle the API.** Requests to `/api/*` create links (validated, screened and
+   rate-limited) or read the public directory.
+3. **Redirect.** Any other path is looked up in Workers KV. A match returns a **302**
+   redirect to the destination and counts the click; anything else falls through to
+   the **404** page.
 
-## Storage: Workers KV
+## Storage
 
-Short links are stored as simple key → value pairs in a KV namespace bound to the Worker as `SHORT_URLS`:
+Short links are key → record pairs in a KV namespace bound as `SHORT_URLS`:
 
 ```
-"/github"    → "https://github.com/isolatedcommand"
-"/linkedin"  → "https://www.linkedin.com/company/isolatedcommand"
-"/instagram" → "https://instagram.com/isolatedcommand"
+"/github"    → { "dest": "https://github.com/isolatedcommand", "clicks": …, "status": "active" }
+"/publisher" → { "dest": "https://publisher.devcomm.isolatedcommand.com", … }
 ```
 
-Adding a link is a single command — no rebuild, no deploy:
+Adding or changing a link is a single KV write — live worldwide in seconds, no rebuild.
 
-```bash
-wrangler kv key put --binding SHORT_URLS "/github" "https://github.com/isolatedcommand"
-```
+## Want the details?
 
-## The Worker
+The full architecture, **security model**, **backend technology**, **API reference**
+and **self-hosting guide** live on the [Documentation](/docs/) page.
 
-The Worker reads the request path, looks it up in KV, and redirects when it finds a match. If there is no match, it hands the request to the static-asset binding so this site is served instead:
-
-```js
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const path = url.pathname;
-
-    // 1. Is this path a known short link?
-    let dest = await env.SHORT_URLS.get(path);
-    if (!dest && path.length > 1) {
-      dest = await env.SHORT_URLS.get(path.replace(/^\//, ""));
-    }
-    if (dest) {
-      return Response.redirect(dest, 301);
-    }
-
-    // 2. Not a short link — serve the static Publisher site (404 page).
-    const notFound = await env.ASSETS.fetch(new URL("/404.html", url.origin));
-    return new Response(notFound.body, { status: 404, headers: notFound.headers });
-  },
-};
-```
-
-Static pages (this site) are matched and served automatically by the assets binding **before** the Worker runs, so the Worker only ever executes for short codes and unknown paths.
-
-## Configuration
-
-The Worker, its KV namespace, and the static front end are wired together in `wrangler.toml`:
-
-```toml
-name = "go-isolatedcommand"
-main = "src/index.js"
-compatibility_date = "2025-07-31"
-
-[assets]
-directory = "./frontend/public"
-binding = "ASSETS"
-not_found_handling = "none"
-
-[[kv_namespaces]]
-binding = "SHORT_URLS"
-id = "<your-kv-namespace-id>"
-```
-
-## Why this design
-
-- **Fast** — redirects resolve at the edge, close to the user, with no cold origin.
-- **Cheap & scalable** — static assets and KV reads scale effortlessly.
-- **Secure** — no application server to attack; the same static-first model as the rest of the [Publisher platform](https://publisher.devcomm).
-- **Simple to operate** — adding or changing a link is one KV write, live worldwide in seconds.
-
-> The front end you are reading is a [Publisher](https://isolatedcommand.com) child site; the redirector is the Worker in front of it. Same platform, one deployment.
+> Go is open source. Read the code, file an issue, or send a pull request on
+> [GitHub](https://github.com/isolatedcommand/Go).

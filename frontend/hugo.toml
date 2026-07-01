@@ -1,5 +1,5 @@
 baseURL = "https://go.isolatedcommand.com/"
-title = "Go — Isolated Command Link Shortener"
+title = "Go — Open Source URL Shortener by Isolated Command DevComm"
 enableRobotsTXT = true
 
 [module]
@@ -12,12 +12,16 @@ unsafe = true
 [params]
 logo_text = "Go"
 logo_width = "120px"
-description = "go.isolatedcommand.com — the official Isolated Command link shortener, running on Cloudflare Workers."
+# Header brand: rendered as  logo_sub | logo  (sub on the left, main on the right).
+logo_sub = "images/logo_sub.png"
+logo = "images/logo.png"
+copyright = "This website is built with [Publisher](https://publisher.devcomm.isolatedcommand.com) by [Isolated Command Developer Community](https://devcomm.isolatedcommand.com)"
+description = "A free, open-source URL shortener on Cloudflare Workers — provided by the Isolated Command Developer Community (DevComm). Generally available, no account required."
 navbar_fixed = true
 
 [[params.navbar_buttons]]
-label = "Isolated Command ↗"
-link = "https://isolatedcommand.com"
+label = "GitHub ↗"
+link = "https://github.com/isolatedcommand/Go"
 style = "outline"
 
 [[menu.main]]
@@ -26,13 +30,13 @@ url = "/search/"
 weight = 1
 
 [[menu.main]]
-name = "Links"
-url = "/links/"
+name = "Docs"
+url = "/docs/"
 weight = 2
 
 [[menu.main]]
-name = "How it works"
-url = "/how-it-works/"
+name = "Links"
+url = "/links/"
 weight = 3
 
 [[menu.main]]
@@ -46,6 +50,16 @@ url = "https://isolatedcommand.com"
 weight = 1
 
 [[menu.footer]]
+name = "DevComm"
+url = "https://publisher.devcomm.isolatedcommand.com"
+weight = 2
+
+[[menu.footer]]
+name = "Source on GitHub"
+url = "https://github.com/isolatedcommand/Go"
+weight = 3
+
+[[menu.footer]]
 name = "Powered by Cloudflare Workers"
 url = "https://workers.cloudflare.com/"
-weight = 2
+weight = 4

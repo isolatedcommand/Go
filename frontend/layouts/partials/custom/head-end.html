@@ -1,6 +1,13 @@
 {{/* go.isolatedcommand.com — shared styling, reusing the Publisher palette (#3272c8). */}}
 <style>
   :root{ --go-blue:#3272c8; --go-line:rgba(255,255,255,.14); --go-panel:rgba(255,255,255,.04); }
+  /* Header brand: logo_sub | logo */
+  .navbar-brand{display:inline-flex;align-items:center;}
+  .go-brand{display:inline-flex;align-items:center;gap:.7rem;}
+  .go-brand img{display:block;height:54px;width:auto;}
+  .go-brand-sub{height:54px;}
+  .go-brand-sep{font-weight:300;font-size:2rem;line-height:1;opacity:.45;color:var(--color-text-light,#e8eefb);}
+  @media (max-width:575px){ .go-brand img{height:40px;} .go-brand-sep{font-size:1.6rem;} }
   .go-eyebrow{display:inline-block;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;opacity:.7;margin-bottom:1rem;}
   .go-lede{font-size:1.1rem;line-height:1.7;opacity:.85;max-width:42rem;}
   .go-hero-actions{margin-top:1.8rem;display:flex;gap:1rem;flex-wrap:wrap;}
@@ -20,25 +27,44 @@
   .post-content blockquote{border-left:3px solid var(--go-blue);padding:.4rem 1rem;margin:1.2rem 0;background:rgba(50,114,200,.08);}
 
   /* ---- Home page: the big editable go.isolatedcommand.com/<code> builder ---- */
-  .go-create{margin:2rem 0 1rem;max-width:52rem;}
-  .go-builder{display:flex;align-items:baseline;flex-wrap:wrap;gap:.1rem;
-              border-bottom:3px solid var(--go-blue);padding-bottom:.4rem;line-height:1.1;}
+  .go-badges{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin:.4rem 0 0;}
+  .go-badges span{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+                  padding:.28rem .7rem;border:1px solid var(--go-line);border-radius:999px;opacity:.85;}
+  .go-create{margin:2.6rem auto 1.2rem;max-width:56rem;text-align:center;}
+  .go-create > label{display:block;font-size:.9rem;}
+  .go-builder{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.15rem;justify-content:center;
+              max-width:100%;line-height:1.15;}
   .go-builder-domain{font-family:monospace;font-weight:800;color:var(--go-blue);
-                     font-size:clamp(1.6rem,5.5vw,3.4rem);letter-spacing:-.01em;white-space:nowrap;}
-  .go-builder-code{flex:1;min-width:8ch;background:transparent;border:0;outline:0;color:#fff;
-                   font-family:monospace;font-weight:800;font-size:clamp(1.6rem,5.5vw,3.4rem);
-                   letter-spacing:-.01em;padding:0;}
-  .go-builder-code::placeholder{color:rgba(255,255,255,.35);font-weight:700;}
-  .go-builder-dest{display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap;}
-  .go-builder-dest input{flex:1;min-width:16rem;background:var(--go-panel);border:1px solid var(--go-line);
-                         border-radius:10px;color:#fff;padding:.85rem 1rem;font-size:1rem;}
+                     font-size:clamp(1.5rem,5.2vw,3.4rem);letter-spacing:-.01em;white-space:nowrap;
+                     border-bottom:3px solid var(--go-blue);padding-bottom:.35rem;}
+  /* The editable slug: styled as an obvious input field so people know they can type it. */
+  .go-builder-code{flex:0 1 14rem;width:14rem;max-width:100%;color:#fff;caret-color:var(--go-blue);
+                   font-family:monospace;font-weight:800;font-size:clamp(1.5rem,5.2vw,3.4rem);
+                   letter-spacing:-.01em;text-align:center;
+                   background:rgba(50,114,200,.16);border:2px dashed rgba(50,114,200,.7);border-radius:12px;
+                   padding:.1em .45em;outline:0;animation:goSlugPulse 2.2s ease-in-out infinite;
+                   transition:background .15s,border-color .15s;}
+  .go-builder-code::placeholder{color:rgba(120,170,240,.7);font-weight:700;}
+  .go-builder-code:hover{background:rgba(50,114,200,.24);}
+  .go-builder-code:focus{animation:none;background:rgba(50,114,200,.26);border-style:solid;border-color:var(--go-blue);}
+  @keyframes goSlugPulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(50,114,200,.0);border-color:rgba(50,114,200,.6);}
+    50%{box-shadow:0 0 0 6px rgba(50,114,200,.18);border-color:rgba(80,150,240,.95);}
+  }
+  .go-hint{margin:1.1rem auto 0;max-width:40rem;font-size:1.02rem;line-height:1.5;color:#dfe8fb;}
+  .go-hint strong{color:#fff;}
+  .go-hint .go-hint-emoji{display:inline-block;font-size:1.2em;animation:goWiggle 1.6s ease-in-out infinite;}
+  @keyframes goWiggle{0%,100%{transform:rotate(-12deg);}50%{transform:rotate(12deg);}}
+  .go-builder-dest{display:flex;gap:.8rem;margin-top:1.6rem;flex-wrap:wrap;justify-content:center;}
+  .go-builder-dest input{flex:1;min-width:16rem;max-width:34rem;background:var(--go-panel);border:1px solid var(--go-line);
+                         border-radius:10px;color:#fff;padding:.85rem 1rem;font-size:1rem;text-align:left;}
   .go-builder-dest input:focus{outline:0;border-color:var(--go-blue);}
   .go-create-msg{margin-top:1rem;font-size:.98rem;min-height:1.4em;}
   .go-create-msg.is-error{color:#ff8a8a;}
   .go-create-msg.is-ok{color:#7ee0a2;}
-  .go-result{margin-top:1rem;display:none;align-items:center;gap:.8rem;flex-wrap:wrap;
+  .go-result{margin-top:1rem;display:none;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap;
              padding:1rem 1.2rem;border:1px solid var(--go-line);border-radius:12px;background:var(--go-panel);}
-  .go-result.show{display:flex;}
+  .go-result.show{display:inline-flex;}
   .go-result a{font-family:monospace;font-weight:700;color:var(--go-blue);word-break:break-all;}
 
   /* ---- Search + Admin shared UI ---- */

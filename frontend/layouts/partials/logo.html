@@ -1,0 +1,36 @@
+{{/* go.isolatedcommand.com brand override: logo_sub | logo
+     Sub-logo on the left, a pipe separator, then the main logo on the right.
+     Each param is an image in assets/; falls back to logo_text / site title. */}}
+{{ $sub := site.Params.logo_sub }}
+{{ $main := site.Params.logo }}
+{{ $h := 54 }}
+{{ $hasSub := and $sub (fileExists (add "assets/" $sub)) }}
+{{ $hasMain := and $main (fileExists (add "assets/" $main)) }}
+
+{{ if or $hasSub $hasMain }}
+<span class="go-brand">
+  {{ if $hasSub }}
+    {{ $s := resources.Get $sub }}
+    {{ if eq (path.Ext $s) ".svg" }}
+      <img class="go-brand-sub" src="{{ $s.RelPermalink }}" height="{{ $h }}" alt="{{ site.Title }} mark" decoding="async">
+    {{ else }}
+      {{ $r := $s.Resize (printf "x%d webp" (mul $h 2)) }}
+      <img class="go-brand-sub" src="{{ $r.RelPermalink }}" height="{{ $h }}" alt="{{ site.Title }} mark" fetchpriority="high" decoding="async">
+    {{ end }}
+  {{ end }}
+  {{ if and $hasSub $hasMain }}<span class="go-brand-sep" aria-hidden="true">|</span>{{ end }}
+  {{ if $hasMain }}
+    {{ $m := resources.Get $main }}
+    {{ if eq (path.Ext $m) ".svg" }}
+      <img class="go-brand-main" src="{{ $m.RelPermalink }}" height="{{ $h }}" alt="{{ site.Title }}" decoding="async">
+    {{ else }}
+      {{ $r := $m.Resize (printf "x%d webp" (mul $h 2)) }}
+      <img class="go-brand-main" src="{{ $r.RelPermalink }}" height="{{ $h }}" alt="{{ site.Title }}" fetchpriority="high" decoding="async">
+    {{ end }}
+  {{ end }}
+</span>
+{{ else if site.Params.logo_text }}
+{{ site.Params.logo_text | markdownify }}
+{{ else }}
+{{ site.Title | markdownify }}
+{{ end }}

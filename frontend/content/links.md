@@ -1,14 +1,17 @@
 ---
 title: "Links"
-description: "The directory of active go.isolatedcommand.com short links."
-subtitle: "Every short link currently served by the Go redirector."
+description: "Featured Isolated Command short links — and the live, searchable directory."
+subtitle: "A handful of official links. Anyone can create their own on the home page."
 layout: docs
-lastmod: 2026-06-30
+lastmod: 2026-07-01
 ---
 
-> Looking for a specific link? Use the live, searchable [**link search**](/search/) — it reads directly from the Workers KV store and shows click counts and status.
+> **Go is generally available.** Anyone can create a short link on the [home page](/) —
+> no account required. Browse or search every link in the live
+> [**link directory**](/search/), which reads directly from Workers KV and shows
+> click counts and status.
 
-## Active short links
+## Featured Isolated Command links
 
 | Short link | Redirects to |
 | --- | --- |
@@ -19,14 +22,19 @@ lastmod: 2026-06-30
 | `go.isolatedcommand.com/publisher` | The Publisher platform site |
 | `go.isolatedcommand.com/volunteer` | The Volunteer Management Portal |
 
-> Links are managed by the Isolated Command Developer Community. Each entry is a key in a Cloudflare Workers KV namespace — see [How it works](/how-it-works/).
+These are official links curated by the Isolated Command Developer Community (DevComm).
+Each entry is a key in a Cloudflare Workers KV namespace — see the
+[Documentation](/docs/) for how it all fits together.
 
-## Requesting a new link
+## Create your own
 
-Need a short link for a campaign, document or project? Reach out to the ICDC. A new link is a single key added to the KV store and is live globally within seconds — no deployment required.
+Head to the [home page](/), paste a destination, and optionally pick a custom name.
+Every destination is validated and screened against the service safety policy before
+a link is created.
 
 ## Behaviour
 
-- A known short link returns an HTTP **301** redirect to its destination.
+- A known short link returns an HTTP **302** redirect to its destination (and counts the click).
+- A **disabled** or **expired** link shows a friendly notice instead of redirecting.
 - An unknown path falls through to this site's **404** page.
-- Everything else (this directory, the homepage) is served as a static page from the same Cloudflare Worker.
+- Everything else (this page, the home page, search, docs) is served as a static page from the same Cloudflare Worker.
