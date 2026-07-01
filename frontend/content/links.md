@@ -6,6 +6,8 @@ layout: docs
 lastmod: 2026-06-30
 ---
 
+> Looking for a specific link? Use the live, searchable [**link search**](/search/) — it reads directly from the Workers KV store and shows click counts and status.
+
 ## Active short links
 
 | Short link | Redirects to |

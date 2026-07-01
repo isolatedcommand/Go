@@ -1,0 +1,36 @@
+{{ define "main" }}
+{{ partial "page-title.html" . }}
+<section class="page-wrapper">
+  <div class="container">
+    <div class="go-tools">
+      <form id="go-search" class="go-searchbar" role="search">
+        <input id="go-q" type="search" name="q" placeholder="Search by short code, destination URL or domain…" aria-label="Search links">
+        <button type="submit" class="btn btn-main">Search</button>
+      </form>
+
+      <div class="go-table-wrap">
+        <table class="go-table">
+          <thead>
+            <tr>
+              <th>Short URL</th>
+              <th>Destination</th>
+              <th>Created</th>
+              <th>Clicks</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="go-rows">
+            <tr><td colspan="6" class="go-empty">Loading links…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="go-pager">
+        <button type="button" class="go-btn-icon" id="go-more" style="display:none;">Load more</button>
+        <span id="go-count" class="go-note"></span>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

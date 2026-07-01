@@ -1,0 +1,70 @@
+{
+  "app": {
+    "name": "Go — Isolated Command Link Shortener",
+    "baseUrl": "https://go.isolatedcommand.com",
+    "hostnames": [
+      "go.isolatedcommand.com",
+      "go-isolatedcommand.workers.dev",
+      "localhost"
+    ]
+  },
+  "kv": {
+    "requireHttps": true,
+    "endpoint": null
+  },
+  "admin": {
+    "comment": "Admin (/admin + /api/admin/*) is protected by Cloudflare Access. Put your Access team domain and application AUD here, or set the ACCESS_TEAM_DOMAIN / ACCESS_AUD env vars (which take precedence).",
+    "access": {
+      "teamDomain": "https://YOUR-TEAM.cloudflareaccess.com",
+      "aud": "YOUR_ACCESS_APPLICATION_AUD"
+    }
+  },
+  "security": {
+    "allowedSchemes": ["http:", "https:"],
+    "blockedSchemes": [
+      "javascript:",
+      "data:",
+      "file:",
+      "blob:",
+      "chrome:",
+      "edge:",
+      "about:",
+      "mailto:",
+      "ftp:"
+    ],
+    "requireHttpsDestination": false,
+    "blockLocalhost": true,
+    "blockPrivateNetworks": true,
+    "blockSelfRedirect": true
+  },
+  "rateLimit": {
+    "enabled": true,
+    "windowSeconds": 60,
+    "maxCreatesPerWindow": 20,
+    "abuseThreshold": 3,
+    "abuseRetentionSeconds": 86400
+  },
+  "shortCode": {
+    "length": 6,
+    "alphabet": "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789",
+    "minCustomLength": 1,
+    "maxCustomLength": 64,
+    "reserved": [
+      "api",
+      "links",
+      "search",
+      "admin",
+      "how-it-works",
+      "config",
+      "404",
+      "index",
+      "robots",
+      "sitemap",
+      "favicon"
+    ]
+  },
+  "pagination": {
+    "defaultPageSize": 20,
+    "maxPageSize": 100
+  }
+}

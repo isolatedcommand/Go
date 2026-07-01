@@ -1,20 +1,80 @@
 {{/* go.isolatedcommand.com — shared styling, reusing the Publisher palette (#3272c8). */}}
 <style>
+  :root{ --go-blue:#3272c8; --go-line:rgba(255,255,255,.14); --go-panel:rgba(255,255,255,.04); }
   .go-eyebrow{display:inline-block;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;opacity:.7;margin-bottom:1rem;}
   .go-lede{font-size:1.1rem;line-height:1.7;opacity:.85;max-width:42rem;}
   .go-hero-actions{margin-top:1.8rem;display:flex;gap:1rem;flex-wrap:wrap;}
-  .go-domain{font-family:monospace;color:#3272c8;font-weight:700;}
-  .go-step{padding:1.4rem;border:1px solid rgba(255,255,255,.12);border-radius:12px;height:100%;margin-bottom:1.5rem;}
-  .go-step-n{display:inline-flex;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;border-radius:50%;background:#3272c8;color:#fff;font-weight:700;}
+  .go-domain{font-family:monospace;color:var(--go-blue);font-weight:700;}
+  .go-step{padding:1.4rem;border:1px solid var(--go-line);border-radius:12px;height:100%;margin-bottom:1.5rem;}
+  .go-step-n{display:inline-flex;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--go-blue);color:#fff;font-weight:700;}
   .go-step h4{margin:.6rem 0 .5rem;}
   .go-links{list-style:none;padding:0;margin:1.5rem 0;}
-  .go-links li{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;border:1px solid rgba(255,255,255,.12);border-radius:10px;margin-bottom:.8rem;flex-wrap:wrap;}
-  .go-links .go-short{font-family:monospace;font-weight:700;color:#3272c8;white-space:nowrap;}
+  .go-links li{display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;border:1px solid var(--go-line);border-radius:10px;margin-bottom:.8rem;flex-wrap:wrap;}
+  .go-links .go-short{font-family:monospace;font-weight:700;color:var(--go-blue);white-space:nowrap;}
   .go-links .go-arrow{opacity:.5;}
   .go-links .go-dest{opacity:.85;word-break:break-all;}
   .post-content table{width:100%;margin:1.2rem 0;border-collapse:collapse;}
   .post-content th,.post-content td{border:1px solid rgba(255,255,255,.15);padding:.6rem .8rem;text-align:left;}
   .post-content th{background:rgba(255,255,255,.06);}
   .post-content code{background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;}
-  .post-content blockquote{border-left:3px solid #3272c8;padding:.4rem 1rem;margin:1.2rem 0;background:rgba(50,114,200,.08);}
+  .post-content blockquote{border-left:3px solid var(--go-blue);padding:.4rem 1rem;margin:1.2rem 0;background:rgba(50,114,200,.08);}
+
+  /* ---- Home page: the big editable go.isolatedcommand.com/<code> builder ---- */
+  .go-create{margin:2rem 0 1rem;max-width:52rem;}
+  .go-builder{display:flex;align-items:baseline;flex-wrap:wrap;gap:.1rem;
+              border-bottom:3px solid var(--go-blue);padding-bottom:.4rem;line-height:1.1;}
+  .go-builder-domain{font-family:monospace;font-weight:800;color:var(--go-blue);
+                     font-size:clamp(1.6rem,5.5vw,3.4rem);letter-spacing:-.01em;white-space:nowrap;}
+  .go-builder-code{flex:1;min-width:8ch;background:transparent;border:0;outline:0;color:#fff;
+                   font-family:monospace;font-weight:800;font-size:clamp(1.6rem,5.5vw,3.4rem);
+                   letter-spacing:-.01em;padding:0;}
+  .go-builder-code::placeholder{color:rgba(255,255,255,.35);font-weight:700;}
+  .go-builder-dest{display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap;}
+  .go-builder-dest input{flex:1;min-width:16rem;background:var(--go-panel);border:1px solid var(--go-line);
+                         border-radius:10px;color:#fff;padding:.85rem 1rem;font-size:1rem;}
+  .go-builder-dest input:focus{outline:0;border-color:var(--go-blue);}
+  .go-create-msg{margin-top:1rem;font-size:.98rem;min-height:1.4em;}
+  .go-create-msg.is-error{color:#ff8a8a;}
+  .go-create-msg.is-ok{color:#7ee0a2;}
+  .go-result{margin-top:1rem;display:none;align-items:center;gap:.8rem;flex-wrap:wrap;
+             padding:1rem 1.2rem;border:1px solid var(--go-line);border-radius:12px;background:var(--go-panel);}
+  .go-result.show{display:flex;}
+  .go-result a{font-family:monospace;font-weight:700;color:var(--go-blue);word-break:break-all;}
+
+  /* ---- Search + Admin shared UI ---- */
+  .go-tools{max-width:1080px;margin:0 auto;}
+  .go-searchbar{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.5rem 0;}
+  .go-searchbar input{flex:1;min-width:14rem;background:var(--go-panel);border:1px solid var(--go-line);
+                      border-radius:10px;color:#fff;padding:.8rem 1rem;font-size:1rem;}
+  .go-searchbar input:focus{outline:0;border-color:var(--go-blue);}
+  .go-table-wrap{overflow-x:auto;border:1px solid var(--go-line);border-radius:12px;}
+  table.go-table{width:100%;border-collapse:collapse;font-size:.94rem;}
+  table.go-table th,table.go-table td{padding:.7rem .8rem;text-align:left;border-bottom:1px solid var(--go-line);vertical-align:middle;}
+  table.go-table th{background:rgba(255,255,255,.05);font-weight:600;white-space:nowrap;}
+  table.go-table td.go-dest-cell{max-width:26rem;word-break:break-all;}
+  table.go-table .go-code{font-family:monospace;font-weight:700;color:var(--go-blue);white-space:nowrap;}
+  .go-badge{display:inline-block;padding:.15rem .55rem;border-radius:999px;font-size:.78rem;font-weight:600;}
+  .go-badge.active{background:rgba(126,224,162,.16);color:#7ee0a2;}
+  .go-badge.disabled{background:rgba(255,138,138,.16);color:#ff8a8a;}
+  .go-badge.expired{background:rgba(255,193,7,.16);color:#ffc107;}
+  .go-btn-icon{background:var(--go-panel);border:1px solid var(--go-line);color:#e8eefb;border-radius:8px;
+               padding:.35rem .6rem;font-size:.82rem;cursor:pointer;white-space:nowrap;}
+  .go-btn-icon:hover{border-color:var(--go-blue);color:#fff;}
+  .go-btn-icon.danger:hover{border-color:#ff8a8a;color:#ff8a8a;}
+  .go-row-actions{display:flex;gap:.4rem;flex-wrap:wrap;}
+  .go-pager{display:flex;justify-content:center;gap:1rem;margin:1.5rem 0;align-items:center;}
+  .go-empty{padding:2rem;text-align:center;opacity:.7;}
+  .go-note{opacity:.7;font-size:.9rem;margin-top:.4rem;}
+  .go-admin-gate{max-width:26rem;margin:2rem auto;padding:1.6rem;border:1px solid var(--go-line);
+                 border-radius:12px;background:var(--go-panel);text-align:center;}
+  .go-admin-gate input{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--go-line);border-radius:10px;
+                       color:#fff;padding:.75rem 1rem;font-size:1rem;margin:.8rem 0;}
 </style>
+
+{{/* Per-page script (declared via `page_js` front matter, served from static/js).
+     go-common.js provides shared helpers and must load first (both use `defer`,
+     which preserves document order). */}}
+{{ with .Params.page_js }}
+<script defer src="{{ "/js/go-common.js" | relURL }}"></script>
+<script defer src="{{ . | relURL }}"></script>
+{{ end }}

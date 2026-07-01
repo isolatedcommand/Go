@@ -21,14 +21,24 @@ link = "https://isolatedcommand.com"
 style = "outline"
 
 [[menu.main]]
+name = "Search"
+url = "/search/"
+weight = 1
+
+[[menu.main]]
 name = "Links"
 url = "/links/"
-weight = 1
+weight = 2
 
 [[menu.main]]
 name = "How it works"
 url = "/how-it-works/"
-weight = 2
+weight = 3
+
+[[menu.main]]
+name = "Admin"
+url = "/admin/"
+weight = 4
 
 [[menu.footer]]
 name = "Isolated Command"

@@ -1,15 +1,36 @@
 {{ define "main" }}
 
-<!-- Hero -->
+<!-- Hero: the big editable short-link builder -->
 <section class="slider">
   <div class="container">
     <div class="row"><div class="col-md-12"><div class="block">
       <span class="go-eyebrow">Isolated Command</span>
       <h1 style="color:#3272c8;">Go</h1>
       <h4>Short, memorable links for everything Isolated Command.</h4>
-      <p class="go-lede">Every short link lives at <span class="go-domain">go.isolatedcommand.com/&lt;name&gt;</span> and redirects instantly. It runs entirely on Cloudflare Workers, backed by a Workers KV store — no servers, globally fast.</p>
+
+      <form id="go-create" class="go-create" autocomplete="off" novalidate>
+        <label for="go-code" class="go-eyebrow" style="margin-bottom:.6rem;">Create a short link</label>
+        <div class="go-builder">
+          <span class="go-builder-domain">go.isolatedcommand.com/</span>
+          <input id="go-code" name="code" class="go-builder-code" placeholder="your-link"
+                 spellcheck="false" autocapitalize="off" aria-label="Custom short link (optional)">
+        </div>
+        <div class="go-builder-dest">
+          <input id="go-dest" name="dest" type="url" required
+                 placeholder="Paste the destination URL (https://…)" aria-label="Destination URL">
+          <button type="submit" class="btn btn-main" id="go-submit">Shorten</button>
+        </div>
+        <p class="go-note">Leave the name blank for a random code. Destinations are validated and screened against our content policy.</p>
+        <p class="go-create-msg" id="go-msg" role="status" aria-live="polite"></p>
+        <div class="go-result" id="go-result">
+          <a id="go-result-link" href="#" target="_blank" rel="noopener"></a>
+          <button type="button" class="go-btn-icon" id="go-result-copy">Copy</button>
+          <button type="button" class="go-btn-icon" id="go-result-open">Open</button>
+        </div>
+      </form>
+
       <div class="go-hero-actions">
-        <a href="/links/" class="btn btn-main">Browse links</a>
+        <a href="/search/" class="btn btn-solid-border">Search links</a>
         <a href="/how-it-works/" class="btn btn-solid-border">How it works</a>
       </div>
     </div></div></div>
@@ -21,9 +42,9 @@
   <div class="container">
     <div class="row"><div class="col-md-12"><div class="title"><h2>How a Go link works</h2></div></div></div>
     <div class="row">
-      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">1</span><h4>Visit a short link</h4><p>Someone opens <span class="go-domain">go.isolatedcommand.com/github</span>.</p></div></div>
-      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">2</span><h4>The Worker looks it up</h4><p>A Cloudflare Worker reads the path and finds the matching destination in Workers KV.</p></div></div>
-      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">3</span><h4>Instant redirect</h4><p>The Worker returns a <code>301</code> redirect to the real URL — served from the edge, worldwide.</p></div></div>
+      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">1</span><h4>Create or visit a link</h4><p>Shorten a URL above, or open an existing <span class="go-domain">go.isolatedcommand.com/github</span>.</p></div></div>
+      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">2</span><h4>The Worker looks it up</h4><p>A Cloudflare Worker validates, screens and resolves the path against Workers KV.</p></div></div>
+      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">3</span><h4>Instant redirect</h4><p>The Worker returns a redirect to the real URL — served from the edge, worldwide, and counted.</p></div></div>
     </div>
   </div>
 </section>
@@ -38,7 +59,7 @@
         <li><span class="go-short">go.isolatedcommand.com/linkedin</span><span class="go-arrow">→</span><span class="go-dest">LinkedIn company page</span></li>
         <li><span class="go-short">go.isolatedcommand.com/instagram</span><span class="go-arrow">→</span><span class="go-dest">Instagram profile</span></li>
       </ul>
-      <p class="text-center"><a href="/links/" class="btn btn-small">See all links →</a></p>
+      <p class="text-center"><a href="/search/" class="btn btn-small">Search all links →</a></p>
     </div></div>
   </div>
 </section>

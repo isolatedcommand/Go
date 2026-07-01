@@ -1,0 +1,54 @@
+{{ define "main" }}
+{{ partial "page-title.html" . }}
+<section class="page-wrapper">
+  <div class="container">
+    <div class="go-tools">
+
+      <!-- Status bar: identity comes from the Cloudflare Access JWT -->
+      <div class="go-searchbar" style="justify-content:space-between;align-items:center;">
+        <span class="go-note" id="go-identity">Verifying Cloudflare Access…</span>
+        <a class="go-btn-icon" id="go-signout" href="/cdn-cgi/access/logout" style="display:none;">Sign out</a>
+      </div>
+
+      <!-- Message shown if Access isn't configured / not authorised -->
+      <div class="go-admin-gate" id="go-gate" style="display:none;">
+        <h3>Admin access required</h3>
+        <p class="go-note" id="go-gate-msg">This page is protected by Cloudflare Access.</p>
+      </div>
+
+      <!-- Console (revealed once the Access JWT is verified) -->
+      <div id="go-console" style="display:none;">
+        <form id="go-search" class="go-searchbar" role="search">
+          <input id="go-q" type="search" name="q" placeholder="Search all short links…" aria-label="Search links">
+          <button type="submit" class="btn btn-main">Search</button>
+        </form>
+
+        <div class="go-table-wrap">
+          <table class="go-table">
+            <thead>
+              <tr>
+                <th>Short URL</th>
+                <th>Destination</th>
+                <th>Created</th>
+                <th>Last accessed</th>
+                <th>Clicks</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="go-rows">
+              <tr><td colspan="7" class="go-empty">Loading links…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="go-pager">
+          <button type="button" class="go-btn-icon" id="go-more" style="display:none;">Load more</button>
+          <span id="go-count" class="go-note"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{{ end }}
