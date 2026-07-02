@@ -1,13 +1,14 @@
 {{ define "main" }}
 
-<!-- Hero: the big editable short-link builder -->
-<section class="slider">
+<!-- ============ HERO ============ -->
+<section class="slider go-hero" id="top">
+  <div class="go-hero-glow" aria-hidden="true"></div>
   <div class="container">
     <div class="row"><div class="col-md-12"><div class="block">
       <span class="go-eyebrow">Isolated Command DevComm · Open Source</span>
       <h1 style="color:#3272c8;">Go</h1>
       <h4>A free, open URL shortener — for everyone.</h4>
-      <p class="go-lede" style="margin-left:auto;margin-right:auto;">Create short, memorable links on <span class="go-domain">go.isolatedcommand.com</span>. Open source, built on Cloudflare's edge, and generally available — no account required.</p>
+      <p class="go-lede">Create short, memorable links on <span class="go-domain">go.isolatedcommand.com</span>. Open source, built on Cloudflare's edge, and generally available — no account required.</p>
 
       <form id="go-create" class="go-create" autocomplete="off" novalidate>
         <label for="go-code" class="go-eyebrow" style="margin-bottom:.7rem;">✨ Make your own custom short link</label>
@@ -22,8 +23,7 @@
                  placeholder="🔗 Paste the destination URL (https://…)" aria-label="Destination URL">
           <button type="submit" class="btn btn-main" id="go-submit">Shorten →</button>
         </div>
-        <p class="go-note">Every destination is validated and screened against our content &amp; safety policy.</p>
-        <p class="go-create-msg" id="go-msg" role="status" aria-live="polite"></p>
+        <p class="go-note">🛡️ Every destination is validated and screened against our content &amp; safety policy.</p>
         <div class="go-result" id="go-result">
           <a id="go-result-link" href="#" target="_blank" rel="noopener"></a>
           <button type="button" class="go-btn-icon" id="go-result-copy">Copy</button>
@@ -32,46 +32,92 @@
       </form>
 
       <div class="go-badges">
-        <span>Open source</span>
-        <span>Free to use</span>
-        <span>Edge-native</span>
-        <span>SSRF &amp; abuse protected</span>
-      </div>
-
-      <div class="go-hero-actions" style="justify-content:center;">
-        <a href="/search/" class="btn btn-solid-border">Browse links</a>
-        <a href="/docs/" class="btn btn-solid-border">Documentation</a>
-        <a href="https://github.com/isolatedcommand/Go" class="btn btn-solid-border" rel="noopener">GitHub ↗</a>
+        <span>⭐ Open source</span>
+        <span>🆓 Free to use</span>
+        <span>⚡ Edge-native</span>
+        <span>🛡️ SSRF &amp; abuse protected</span>
+        <span>🔒 HTTPS only</span>
       </div>
     </div></div></div>
   </div>
+  <a href="#features" class="go-scroll-cue" aria-label="Scroll down"><i class="fas fa-chevron-down"></i></a>
 </section>
 
-<!-- How it works -->
-<section class="section bg-dark dark-service">
+<!-- ============ LIVE STATS ============ -->
+<section class="go-statsbar">
   <div class="container">
-    <div class="row"><div class="col-md-12"><div class="title"><h2>How a Go link works</h2></div></div></div>
-    <div class="row">
-      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">1</span><h4>Create or visit a link</h4><p>Shorten any URL above, or open an existing <span class="go-domain">go.isolatedcommand.com/github</span>.</p></div></div>
-      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">2</span><h4>Validated &amp; screened</h4><p>A Cloudflare Worker checks the URL for unsafe schemes, private-network SSRF and blocked content before storing it in Workers KV.</p></div></div>
-      <div class="col-md-4 col-sm-6"><div class="go-step"><span class="go-step-n">3</span><h4>Instant, counted redirect</h4><p>Matching links redirect from the edge worldwide — and every click is counted.</p></div></div>
+    <div class="go-stats">
+      <div class="go-stat"><span class="go-stat-num" data-stat="links" data-suffix="">—</span><span class="go-stat-label">Short links created</span></div>
+      <div class="go-stat"><span class="go-stat-num" data-stat="clicks" data-suffix="">—</span><span class="go-stat-label">Total redirects served</span></div>
+      <div class="go-stat"><span class="go-stat-num">0</span><span class="go-stat-label">Servers to run</span></div>
+      <div class="go-stat"><span class="go-stat-num">100<small>%</small></span><span class="go-stat-label">Served from the edge</span></div>
     </div>
   </div>
 </section>
 
-<!-- Open source / community -->
+<!-- ============ FEATURES ============ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="title"><h2>Everything a shortener should be</h2></div>
+    <div class="go-features">
+      <article class="go-card">
+        <div class="go-card-ic"><i class="fas fa-bolt"></i></div>
+        <h4>Edge-fast redirects</h4>
+        <p>Links resolve from Cloudflare's global network, close to every visitor — no origin server, no cold starts.</p>
+      </article>
+      <article class="go-card">
+        <div class="go-card-ic"><i class="fas fa-shield-halved"></i></div>
+        <h4>Secure by default</h4>
+        <p>Every destination is validated: unsafe schemes, private-network SSRF, redirect loops and blocked content are rejected.</p>
+      </article>
+      <article class="go-card">
+        <div class="go-card-ic"><i class="fas fa-wand-magic-sparkles"></i></div>
+        <h4>Custom links</h4>
+        <p>Pick a memorable name, or get a random code. Reserved words are protected so nothing collides.</p>
+      </article>
+      <article class="go-card">
+        <div class="go-card-ic"><i class="fas fa-chart-line"></i></div>
+        <h4>Built-in analytics</h4>
+        <p>Track clicks, creation date and last-accessed time for every link, updated live.</p>
+      </article>
+      <article class="go-card">
+        <div class="go-card-ic"><i class="fas fa-user-shield"></i></div>
+        <h4>Abuse-protected</h4>
+        <p>Per-IP rate limiting with hashed identifiers keeps the service clean — and admin is gated by Cloudflare Access.</p>
+      </article>
+      <article class="go-card">
+        <div class="go-card-ic"><i class="fab fa-github"></i></div>
+        <h4>Open source</h4>
+        <p>Read the code, file an issue, or self-host your own instance. Built in the open by DevComm.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section bg-dark dark-service">
+  <div class="container">
+    <div class="title"><h2>How a Go link works</h2></div>
+    <div class="go-steps">
+      <div class="go-step"><span class="go-step-n">1</span><h4>Create or visit a link</h4><p>Shorten any URL above, or open an existing <span class="go-domain">go.isolatedcommand.com/github</span>.</p></div>
+      <div class="go-step"><span class="go-step-n">2</span><h4>Validated &amp; screened</h4><p>A Cloudflare Worker checks the URL for unsafe schemes, SSRF and blocked content before storing it in Workers KV.</p></div>
+      <div class="go-step"><span class="go-step-n">3</span><h4>Counted redirect</h4><p>A friendly 5-second interstitial shows the destination, then sends the visitor on — and counts the click.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
 <section class="section">
   <div class="container">
-    <div class="row"><div class="col-md-8 col-md-offset-2">
-      <div class="title"><h2>Built in the open by DevComm</h2></div>
-      <p class="go-lede" style="margin:0 auto 1.5rem;text-align:center;">Go is a community project of the <strong>Isolated Command Developer Community (DevComm)</strong>. The code, security model and configuration are all open — fork it, self-host it, or contribute a fix. No servers, no database to run: just Cloudflare Workers and Workers KV.</p>
-      <ul class="go-links">
-        <li><span class="go-short">go.isolatedcommand.com/github</span><span class="go-arrow">→</span><span class="go-dest">github.com/isolatedcommand</span></li>
-        <li><span class="go-short">go.isolatedcommand.com/publisher</span><span class="go-arrow">→</span><span class="go-dest">The Publisher platform</span></li>
-        <li><span class="go-short">go.isolatedcommand.com/volunteer</span><span class="go-arrow">→</span><span class="go-dest">Volunteer Management Portal</span></li>
-      </ul>
-      <p class="text-center"><a href="/docs/" class="btn btn-small">Read the documentation →</a></p>
-    </div></div>
+    <div class="go-cta">
+      <h2>Ready to shorten something?</h2>
+      <p>It's free, open, and takes one paste. No sign-up, no tracking cookies.</p>
+      <div class="go-hero-actions" style="justify-content:center;">
+        <a href="#top" class="btn btn-main">Create a link ↑</a>
+        <a href="/search/" class="btn btn-solid-border">Browse the directory</a>
+        <a href="/docs/" class="btn btn-solid-border">Read the docs</a>
+      </div>
+    </div>
   </div>
 </section>
 

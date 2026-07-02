@@ -1,6 +1,31 @@
-/* Home page — the big editable go.isolatedcommand.com/<code> builder. */
+/* Home page — the big editable go.isolatedcommand.com/<code> builder + live stats. */
 (function () {
   "use strict";
+
+  // ---- Animated stat counters (from /api/stats) ----
+  (function stats() {
+    var nums = document.querySelectorAll(".go-stat-num[data-stat]");
+    if (!nums.length) return;
+    function animate(el, target) {
+      var start = 0, dur = 1100, t0 = null;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(start + (target - start) * eased).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    Go.api("/api/stats").then(function (r) {
+      if (!r.ok) { nums.forEach(function (n) { n.textContent = "—"; }); return; }
+      nums.forEach(function (n) {
+        var v = Number(r.data[n.getAttribute("data-stat")] || 0);
+        animate(n, v);
+      });
+    });
+  })();
+
   var form = document.getElementById("go-create");
   if (!form) return;
 

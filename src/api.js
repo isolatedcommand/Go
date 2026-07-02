@@ -244,6 +244,22 @@ export async function handleApi(request, env) {
   const parts = url.pathname.split("/").filter(Boolean); // e.g. ["api","links","abc"]
   const method = request.method.toUpperCase();
 
+  // /api/stats — public aggregate counters for the home page.
+  if (parts[1] === "stats" && method === "GET") {
+    let cursor;
+    let links = 0;
+    let clicks = 0;
+    do {
+      const { items, cursor: next } = await listLinks(env, { cursor, limit: 1000 });
+      for (const it of items) {
+        links += 1;
+        clicks += Number(it.clicks || 0);
+      }
+      cursor = next;
+    } while (cursor);
+    return json({ links, clicks }, 200, { "cache-control": "public, max-age=60" });
+  }
+
   // /api/links ...
   if (parts[1] === "links") {
     const code = parts.slice(2).join("/");
