@@ -30,19 +30,18 @@
   .go-badges{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin:.4rem 0 0;}
   .go-badges span{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;
                   padding:.28rem .7rem;border:1px solid var(--go-line);border-radius:999px;opacity:.85;}
-  .go-create{margin:2.6rem auto 1.2rem;max-width:56rem;text-align:center;}
-  .go-create > label{display:block;font-size:.9rem;}
-  .go-builder{display:inline-flex;align-items:center;flex-wrap:wrap;gap:.15rem;justify-content:center;
-              max-width:100%;line-height:1.15;}
+  .go-create{margin:3.2rem auto 1.4rem;max-width:1180px;width:100%;text-align:center;}
+  .go-create > label{display:block;font-size:1rem;letter-spacing:.16em;margin-bottom:1rem;}
+  .go-builder{display:flex;align-items:baseline;flex-wrap:wrap;gap:.25rem;justify-content:center;
+              width:100%;line-height:1.12;border-bottom:4px solid var(--go-blue);padding-bottom:.5rem;}
   .go-builder-domain{font-family:monospace;font-weight:800;color:var(--go-blue);
-                     font-size:clamp(1.5rem,5.2vw,3.4rem);letter-spacing:-.01em;white-space:nowrap;
-                     border-bottom:3px solid var(--go-blue);padding-bottom:.35rem;}
-  /* The editable slug: styled as an obvious input field so people know they can type it. */
-  .go-builder-code{flex:0 1 14rem;width:14rem;max-width:100%;color:#fff;caret-color:var(--go-blue);
-                   font-family:monospace;font-weight:800;font-size:clamp(1.5rem,5.2vw,3.4rem);
-                   letter-spacing:-.01em;text-align:center;
-                   background:rgba(50,114,200,.16);border:2px dashed rgba(50,114,200,.7);border-radius:12px;
-                   padding:.1em .45em;outline:0;animation:goSlugPulse 2.2s ease-in-out infinite;
+                     font-size:clamp(1.5rem,5vw,3.8rem);letter-spacing:-.01em;white-space:nowrap;}
+  /* The editable slug: an obvious, big input field that grows to fill the row. */
+  .go-builder-code{flex:1 1 12rem;width:auto;min-width:8rem;color:#fff;caret-color:var(--go-blue);
+                   font-family:monospace;font-weight:800;font-size:clamp(1.5rem,5vw,3.8rem);
+                   letter-spacing:-.01em;text-align:left;
+                   background:rgba(50,114,200,.16);border:2px dashed rgba(50,114,200,.7);border-radius:14px;
+                   padding:.05em .4em;outline:0;animation:goSlugPulse 2.2s ease-in-out infinite;
                    transition:background .15s,border-color .15s;}
   .go-builder-code::placeholder{color:rgba(120,170,240,.7);font-weight:700;}
   .go-builder-code:hover{background:rgba(50,114,200,.24);}
@@ -51,13 +50,15 @@
     0%,100%{box-shadow:0 0 0 0 rgba(50,114,200,.0);border-color:rgba(50,114,200,.6);}
     50%{box-shadow:0 0 0 6px rgba(50,114,200,.18);border-color:rgba(80,150,240,.95);}
   }
-  .go-hint{margin:1.1rem auto 0;max-width:40rem;font-size:1.02rem;line-height:1.5;color:#dfe8fb;}
+  .go-hint{margin:1.4rem auto 0;max-width:48rem;font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.55;color:#dfe8fb;}
   .go-hint strong{color:#fff;}
   .go-hint .go-hint-emoji{display:inline-block;font-size:1.2em;animation:goWiggle 1.6s ease-in-out infinite;}
   @keyframes goWiggle{0%,100%{transform:rotate(-12deg);}50%{transform:rotate(12deg);}}
-  .go-builder-dest{display:flex;gap:.8rem;margin-top:1.6rem;flex-wrap:wrap;justify-content:center;}
-  .go-builder-dest input{flex:1;min-width:16rem;max-width:34rem;background:var(--go-panel);border:1px solid var(--go-line);
-                         border-radius:10px;color:#fff;padding:.85rem 1rem;font-size:1rem;text-align:left;}
+  .go-builder-dest{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;justify-content:center;
+                   width:100%;max-width:820px;margin-left:auto;margin-right:auto;}
+  .go-builder-dest input{flex:1;min-width:16rem;background:var(--go-panel);border:1px solid var(--go-line);
+                         border-radius:12px;color:#fff;padding:1.05rem 1.3rem;font-size:1.15rem;text-align:left;}
+  .go-builder-dest .btn{font-size:1.15rem;padding-left:2rem;padding-right:2rem;}
   .go-builder-dest input:focus{outline:0;border-color:var(--go-blue);}
   .go-create-msg{margin-top:1rem;font-size:.98rem;min-height:1.4em;}
   .go-create-msg.is-error{color:#ff8a8a;}
@@ -96,12 +97,14 @@
   .go-admin-gate input{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--go-line);border-radius:10px;
                        color:#fff;padding:.75rem 1rem;font-size:1rem;margin:.8rem 0;}
 
-  /* ---- Spacious home ---- */
-  .slider .block h4{margin-top:1rem;opacity:.9;}
-  .slider .go-lede{margin-top:1.2rem;}
-  .go-create{margin-top:3.2rem;}
-  .go-badges{margin-top:2.4rem;gap:.7rem;}
-  .go-hero-actions{margin-top:2.4rem;gap:1.1rem;}
+  /* ---- BIG full-page hero ---- */
+  .slider{min-height:100vh;padding:110px 0 70px;}
+  .slider .container{width:92%;max-width:1600px;}
+  .slider .block h1{font-size:clamp(4rem,13vw,10rem)!important;margin-bottom:1.4rem!important;}
+  .slider .block h4{margin-top:1rem;opacity:.92;font-size:clamp(1.3rem,2.6vw,2.2rem);}
+  .slider .go-lede{margin:1.4rem auto 0;max-width:60rem;font-size:clamp(1.05rem,1.7vw,1.45rem);}
+  .go-badges{margin-top:2.6rem;gap:.7rem;}
+  .go-hero-actions{margin-top:2.6rem;gap:1.1rem;}
   .section{padding-top:100px;padding-bottom:100px;}
   .section .title{margin-bottom:2.2rem;}
   .go-step{padding:1.8rem;}
